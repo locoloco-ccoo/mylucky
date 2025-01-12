@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Avatar } from 'antd-mobile'
 import colorAnalysisIcon from '../assets/colorAnalysis.svg';
 import historyRecordIcon from '../assets/history.svg';
 
@@ -11,7 +12,7 @@ const styles = {
     }
 }
 
-const HeaderButtons = () => {
+const HeaderButtons = ({ onLogout, profile }) => {
   const navigate = useNavigate();
   const handleColorAnalysisClick = () => {
     navigate('/tutorial')
@@ -22,7 +23,7 @@ const HeaderButtons = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px', marginBottom: '8px' }}>
       {/* 色彩鑑定按鈕 */}
       <div
         onClick={handleColorAnalysisClick}
@@ -37,6 +38,27 @@ const HeaderButtons = () => {
         className="header-btn"
       >
         <img src={historyRecordIcon} alt="History Record Icon" style={styles.img} />
+      </div>
+      <div 
+        style={{ 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: '0.25rem',
+          padding: '2px 8px',
+          marginBottom: '8px'
+        }}
+      >
+        <Avatar
+          src={profile?.pictureUrl}
+          style={{ '--size': '48px' }} // 調整頭像大小
+        />
+        <div style={{ marginLeft: '8px' }}>
+        <span>{profile?.displayName}</span><br />
+        <a onClick={onLogout}>
+          登出
+        </a>
+        </div>
       </div>
     </div>
   );
